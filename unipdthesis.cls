@@ -1,15 +1,13 @@
-% ADAPTED FOR MSc OF PHYSICS OF DATA
 % INJ
+% Modified version of Template:
 % LaTeX class for BSc/MSc theses at dfa.unict.it
-% (c) 2018, 2019, 2020, 2021 G. G. N. Angilella <giuseppe.angilella@ct.infn.it>
+% (c) 2018, 2019 G. G. N. Angilella <giuseppe.angilella@ct.infn.it>
 \NeedsTeXFormat{LaTeX2e}
-%\ProvidesClass{dfaunictthesis}[2018/10/14 LaTeX class for BSc/MSc theses at dfa.unict.it]
-%\ProvidesClass{dfaunictthesis}[2019/03/10 LaTeX class for BSc/MSc theses at dfa.unict.it]
-\ProvidesClass{dfaunictthesis}[2021/03/25 LaTeX class for BSc/MSc theses at dfa.unict.it]
+\ProvidesClass{unipdthesis}[]
 \LoadClass[12pt,twoside]{book}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[english]{babel}
+\RequirePackage[italian,english]{babel}
 \RequirePackage[a-1b]{pdfx}
 \RequirePackage{graphicx}
 \RequirePackage{amsfonts}
@@ -18,11 +16,10 @@
 \RequirePackage[sc]{mathpazo}
 \linespread{1.05}         % Palladio needs more leading (space between lines)
 
-
 %\usepackage{lipsum}
 %\usepackage{verbatim}
 
-\RequirePackage{xifthen}
+\RequirePackage{ifthen}
 \RequirePackage{refcount}
 \RequirePackage{xstring}
 
@@ -38,62 +35,74 @@
 \DeclareOption{MSc}{\renewcommand{\thesistype}{MSc}}
 \DeclareOption{VO}{\renewcommand{\thesistype}{VO}}
 \DeclareOption{PhD}{\renewcommand{\thesistype}{PhD}}
+%\DeclareOption{italian}{\PassOptionsToPackage{italian}{babel}\selectlanguage{italian}}
+%\DeclareOption{english}{\PassOptionsToPackage{english}{babel}\selectlanguage{english}}
+\DeclareOption{italian}{\AtBeginDocument{\selectlanguage{italian}}}
 \DeclareOption{english}{\AtBeginDocument{\selectlanguage{english}}}
+%\DeclareOption{red}{\renewcommand{\headlinecolor}{\color{slcolor}}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
 
 
 \providecommand*{\supervisorname}{Supervisors}
-\providecommand*{\cosupervisorname}{Co-Supervisors}
 \providecommand*{\CdLname}{BSc programme in Physics}
 \providecommand*{\thesistypename}{final project}
 \providecommand*{\aaname}{academic year}
 
-\phdname{physics}
-
 \newcounter{supervisorsno}
-\newcounter{cosupervisorsno}
 
 \newcommand\@supervisors{\@latex@error{No supervisors given}\@ehc}
 \NewEnviron{supervisors}{\global\let\@supervisors\BODY}
 
-\newcommand\@cosupervisors{}
-\newcommand\@cosupervisorscheck{NOCOSUPERVISORS}
-\NewEnviron{cosupervisors}{\global\let\@cosupervisors\BODY\global\let\@cosupervisorscheck\@empty}
 
 \newcommand{\supervisor}[3]{\refstepcounter{supervisorsno}#1 \> #2 #3 \\}
 
-\newcommand{\cosupervisor}[3]{\refstepcounter{cosupervisorsno}#1 \> #2 #3 \\}
-
 \newcommand{\svnon}{}
-
-\newcommand{\cosvnon}{}
+\def\logounipd{./imgs/unipd_logo_red}
 
 \AtBeginDocument{%
     \StrBehind{\getrefbykeydefault{svno}{anchor}{}}{.}[\svnon]
-    \StrBehind{\getrefbykeydefault{cosvno}{anchor}{}}{.}[\cosvnon]
+    \iflanguage{italian}{%
+        \ifthenelse{\equal{\svnon}{1}}{%
+            \renewcommand*\supervisorname{Relatore}%
+        }{%
+            \renewcommand*\supervisorname{Relatori}%
+        }
+        \renewcommand*\aaname{anno accademico}%
+        \ifthenelse{\equal{\thesistype}{BSc}}{%
+            \renewcommand{\CdLname}{corso di laurea in \coursename}%
+            \renewcommand{\thesistypename}{elaborato finale}%
+        }{\relax}
+        \ifthenelse{\equal{\thesistype}{MSc}}{%
+            \renewcommand{\CdLname}{corso di laurea magistrale in \coursename}%
+            \renewcommand{\thesistypename}{elaborato finale}%
+        }{\relax}
+        \ifthenelse{\equal{\thesistype}{VO}}{%
+            \renewcommand{\CdLname}{corso di laurea in \coursename}%
+            \renewcommand{\thesistypename}{tesi di laurea}%
+        }{\relax}
+        \ifthenelse{\equal{\thesistype}{PhD}}{%
+            \renewcommand{\CdLname}{dottorato di ricerca in \coursename}%
+            \renewcommand{\thesistypename}{tesi di dottorato}%
+        }{\relax}
+    }{\relax}%
     \iflanguage{english}{%
         \ifthenelse{\equal{\svnon}{1}}{%
             \renewcommand*\supervisorname{Supervisor}%
         }{%
             \renewcommand*\supervisorname{Supervisors}%
         }
-        \ifthenelse{\equal{\cosvnon}{1}}{%
-            \renewcommand*\cosupervisorname{Co-Supervisor}%
-        }{%
-            \renewcommand*\cosupervisorname{Co-Supervisors}%
-        }
         \renewcommand*\aaname{academic year}%
         \ifthenelse{\equal{\thesistype}{BSc}}{%
-            \renewcommand{\CdLname}{BSc programme in physics of data}%
+            \renewcommand{\CdLname}{BSc programme in physics}%
             \renewcommand{\thesistypename}{final project}%
         }{\relax}
         \ifthenelse{\equal{\thesistype}{MSc}}{%
-            \renewcommand{\CdLname}{MSc programme in physics of data}%
+            \renewcommand{\CdLname}{MSc programme in physics}%
             \renewcommand{\thesistypename}{final project}%
         }{\relax}
         \ifthenelse{\equal{\thesistype}{VO}}{%
-            \renewcommand{\CdLname}{degree course in physics of data}%
+            \renewcommand{\CdLname}{degree course in physics}%
             \renewcommand{\thesistypename}{degree thesis}%
         }{\relax}
         \ifthenelse{\equal{\thesistype}{PhD}}{%
@@ -103,21 +112,23 @@
     }{\relax}%
 }
 
+
 \newcommand{\maketitlepage}{%
     \begin{titlepage}
         \begin{center}
+%            \includegraphics[width=16em]{unict_dfa}\\
             \begin{minipage}[c]{0.45\textwidth}
                \begin{flushleft}
-                  \includegraphics[width=1\textwidth]{./teximgs/800anni_logo}
+                  \includegraphics[width=.8\textwidth]{\logounipd}
                \end{flushleft}
             \end{minipage}
             \hfill
             \begin{minipage}[c]{0.45\textwidth}
                \begin{flushright}
-                  \includegraphics[width=.4\textwidth]{./teximgs/PODlogo}
+                  \includegraphics[width=\logocoursedim\textwidth]{\logocourse}
                \end{flushright}
-            \end{minipage}\bigskip\\
-            \medskip
+            \end{minipage}\\
+            \bigskip
             {\sc\CdLname}\\
             \hbox to \textwidth{\hrulefill}
             \vspace{3truecm}
@@ -131,20 +142,12 @@
             \centerline{\hbox to 3.5truecm{\hrulefill}}
             \vfill
             \begin{flushright}
-                \begin{minipage}{0.4\textwidth}
+                \begin{minipage}{0.3\textwidth}
                     \begin{tabbing}
                         Chiar.mo \= Prof. P. Pallino \kill
                         \supervisorname: \> \\
                         \@supervisors
-                        \label{svno}%
-                        \ifthenelse{\equal{\expandafter\@cosupervisorscheck}{NOCOSUPERVISORS}}{%
-                           \relax
-                        }{%
-                           \medskip\\
-                           \cosupervisorname: \> \\
-                           \@cosupervisors
-                           \label{cosvno}
-                        }
+                        \label{svno}
                     \end{tabbing}
                 \end{minipage}
             \end{flushright}
