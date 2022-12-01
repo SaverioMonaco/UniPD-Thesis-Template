@@ -8,7 +8,6 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[italian,english]{babel}
-\RequirePackage[a-1b]{pdfx}
 \RequirePackage{graphicx}
 \RequirePackage{amsfonts}
 \RequirePackage{amsbsy}

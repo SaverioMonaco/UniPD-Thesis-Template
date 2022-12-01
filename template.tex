@@ -3,6 +3,8 @@
 \documentclass[BSc,italian]{unipdthesis}
 \usepackage{lipsum}
 \usepackage[Lenny]{fncychap}
+\usepackage[a-2b,mathxmp]{pdfx}
+\usepackage[pdfa]{hyperref}
 
 \input{info}
 
@@ -37,14 +39,6 @@
 Inline equation $\nabla\cdot{\bf B} = 0$.
 \lipsum[20]
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.8\columnwidth]{esempio.pdf}
-\caption{Caption}
-\label{fig:esempio}
-\end{figure}
-
-Cf.\ Fig.~\ref{fig:esempio}.
 \lipsum[30]
 \begin{equation}
 f(z) = \oint \frac{f(\zeta)}{\zeta - z} d\zeta .
