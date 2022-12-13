@@ -93,15 +93,15 @@
         }
         \renewcommand*\aaname{academic year}%
         \ifthenelse{\equal{\thesistype}{BSc}}{%
-            \renewcommand{\CdLname}{BSc programme in physics}%
+            \renewcommand{\CdLname}{BSc programme in \coursename}%
             \renewcommand{\thesistypename}{final project}%
         }{\relax}
         \ifthenelse{\equal{\thesistype}{MSc}}{%
-            \renewcommand{\CdLname}{MSc programme in physics}%
+            \renewcommand{\CdLname}{MSc programme in \coursename}%
             \renewcommand{\thesistypename}{final project}%
         }{\relax}
         \ifthenelse{\equal{\thesistype}{VO}}{%
-            \renewcommand{\CdLname}{degree course in physics}%
+            \renewcommand{\CdLname}{degree course in \coursename}%
             \renewcommand{\thesistypename}{degree thesis}%
         }{\relax}
         \ifthenelse{\equal{\thesistype}{PhD}}{%
