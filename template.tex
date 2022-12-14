@@ -5,6 +5,8 @@
 \usepackage[Lenny]{fncychap}
 \usepackage[a-2b,mathxmp]{pdfx}
 \usepackage[pdfa]{hyperref}
+\usepackage{biblatex}
+\addbibresource{biblio.bib}
 
 \input{info}
 
@@ -51,8 +53,7 @@ f(z) = \oint \frac{f(\zeta)}{\zeta - z} d\zeta .
 \lipsum[20]
 
 \addcontentsline{toc}{chapter}{\iflanguage{italian}{Bibliografia}{Bibliography}}
-\bibliographystyle{mprsty}
-\bibliography{biblio}
+\printbibliography
 
 \chapter*{\iflanguage{italian}{Ringraziamenti}{Acknowledgements}}
 \addcontentsline{toc}{chapter}{\iflanguage{italian}{Ringraziamenti}{Acknowledgements}}
