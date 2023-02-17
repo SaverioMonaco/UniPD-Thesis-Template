@@ -113,6 +113,7 @@
 
 
 \newcommand{\maketitlepage}{%
+	\newgeometry{centering} % Centered geometry just for the title page
     \begin{titlepage}
         \begin{center}
 %            \includegraphics[width=16em]{unict_dfa}\\
@@ -155,4 +156,5 @@
             {\sc\aaname{} \@aayear}
         \end{center}
     \end{titlepage}
+	\restoregeometry
 }
